@@ -10,24 +10,17 @@ const list = Object.keys(config)
 export default defineEventHandler( async (event) => {
 
     const type = getHeader(event, "x-github-event")
-    if (type != "push") {
-        setResponseStatus(event, 404)
-        return { message: "事件不符" }
-    }
-
     const payload = await readBody(event)
     const name = payload.repository.name
 
-    console.log(list, name)
-    if ( !list.includes(name) ) {
-        setResponseStatus(event, 403)
-        return { message: "仓库不符" }
+    if ( type == "push" && list.includes(name) ) {
+        runCommand(name)
     }
 
-    runCommand(name)
     setResponseStatus(event, 200)
     return { message: "已接收" }
 })
+
 
 function runCommand(name) {
     const meta = config[name]
