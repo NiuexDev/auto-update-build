@@ -13,15 +13,19 @@ export default defineEventHandler( async (event) => {
     if (type != "push") {
         setResponseStatus(event, 404)
         return { message: "事件不符" }
-    } else {
-        const payload = await readBody(event)
-        const name = payload.repository.name
-        if ( list.includes(name) ) {
-            runCommand(name)
-        }
-        setResponseStatus(event, 200)
-        return { message: "已接收" }
     }
+
+    const payload = await readBody(event)
+    const name = payload.repository.name
+
+    if ( !list.includes(name) ) {
+        setResponseStatus(event, 403)
+        return { message: "仓库不符" }
+    }
+
+    runCommand(name)
+    setResponseStatus(event, 200)
+    return { message: "已接收" }
 })
 
 function runCommand(name) {
