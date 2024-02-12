@@ -18,6 +18,7 @@ export default defineEventHandler( async (event) => {
     const payload = await readBody(event)
     const name = payload.repository.name
 
+    console.log(list, name)
     if ( !list.includes(name) ) {
         setResponseStatus(event, 403)
         return { message: "仓库不符" }
