@@ -41,7 +41,7 @@ function runCommand(name) {
     const output = meta.path + meta.output
     if (existsSync(online)) renameSync(online, online+"_")
     if (existsSync(output)) renameSync(output, online)
-    if (existsSync(online+"_")) unlinkSync(online+"_")
+    execSync("rm "+output+"_")
 
     console.log(`
     更新完成
