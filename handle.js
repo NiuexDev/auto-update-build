@@ -10,11 +10,13 @@ const list = Object.keys(config)
 export default defineEventHandler( async (event) => {
 
     const type = getHeader(event, "x-github-event")
-    const payload = await readBody(event)
-    const name = payload.repository.name
-
-    if ( type == "push" && list.includes(name) ) {
-        runCommand(name)
+    
+    if ( type == "push" ) {
+        const payload = await readBody(event)
+        const name = payload.repository.name
+        if ( list.includes(name) ) {
+            runCommand(name)
+        }
     }
 
     setResponseStatus(event, 200)
