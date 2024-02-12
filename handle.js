@@ -29,7 +29,7 @@ function runCommand(name) {
 
     console.log(`
     ----------------------------
-    ${new Date().getTime()}
+    ${new Date().toLocaleString()}
     正在更新：${name}
     `)
 
@@ -38,7 +38,7 @@ function runCommand(name) {
     execSync(meta.command)
 
     const online = meta.path + meta.online
-    const output = meta.parse + meta.output
+    const output = meta.path + meta.output
     renameSync(online, online+"_")
     renameSync(output, online)
     unlinkSync(online+"_")
