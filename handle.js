@@ -25,7 +25,11 @@ export default defineEventHandler( async (event) => {
 function runCommand(name) {
     const meta = config[name]
 
-    console.log(meta)
+    console.log(`
+    ----------------------------
+    ${new Date().getTime()}
+    正在更新：${name}
+    `)
 
     process.chdir(meta.path)
     execSync("git pull")
@@ -36,4 +40,9 @@ function runCommand(name) {
     renameSync(online, online+"_")
     renameSync(output, online)
     unlinkSync(online+"_")
+
+    console.log(`
+    更新完成
+    ----------------------------
+    `)
 }
