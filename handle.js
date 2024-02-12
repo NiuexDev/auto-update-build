@@ -45,7 +45,7 @@ function runCommand(name) {
     try {
         if (existsSync(output)) renameSync(output, online)
     } catch {}
-    execSync("rm -r"+online+"_")
+    execSync("rm -r "+online+"_")
 
     console.log(`
     更新完成
