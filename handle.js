@@ -39,9 +39,13 @@ function runCommand(name) {
 
     const online = meta.path + meta.online
     const output = meta.path + meta.output
-    if (existsSync(online)) renameSync(online, online+"_")
-    if (existsSync(output)) renameSync(output, online)
-    execSync("rm "+online+"_")
+    try {
+        if (existsSync(online)) renameSync(online, online+"_")
+    }
+    try {
+        if (existsSync(output)) renameSync(output, online)
+    }
+    execSync("rm -r"+online+"_")
 
     console.log(`
     更新完成
