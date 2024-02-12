@@ -41,10 +41,10 @@ function runCommand(name) {
     const output = meta.path + meta.output
     try {
         if (existsSync(online)) renameSync(online, online+"_")
-    }
+    } catch {}
     try {
         if (existsSync(output)) renameSync(output, online)
-    }
+    } catch {}
     execSync("rm -r"+online+"_")
 
     console.log(`
