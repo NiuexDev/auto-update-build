@@ -1,6 +1,6 @@
 import { defineEventHandler, getHeader, readBody, setResponseStatus } from "h3"
 import { execSync } from "node:child_process"
-import { readFileSync, renameSync, unlinkSync } from "node:fs"
+import { existsSync, readFileSync, renameSync, unlinkSync } from "node:fs"
 
 
 const config = JSON.parse(readFileSync("./config.json", "utf-8"))
@@ -39,9 +39,9 @@ function runCommand(name) {
 
     const online = meta.path + meta.online
     const output = meta.path + meta.output
-    renameSync(online, online+"_")
-    renameSync(output, online)
-    unlinkSync(online+"_")
+    if (existsSync(online)) renameSync(online, online+"_")
+    if (existsSync(output)) renameSync(output, online)
+    if (existsSync(online+"_")) unlinkSync(online+"_")
 
     console.log(`
     更新完成
