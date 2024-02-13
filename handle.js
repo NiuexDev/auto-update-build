@@ -1,6 +1,7 @@
 import { defineEventHandler, getHeader, readBody, setResponseStatus } from "h3"
 import { execSync } from "node:child_process"
-import { existsSync, readFileSync, renameSync, unlinkSync } from "node:fs"
+import { existsSync, mkdirSync, readFileSync, renameSync, unlinkSync } from "node:fs"
+import log from "./log.js"
 
 
 const config = JSON.parse(readFileSync("./config.json", "utf-8"))
@@ -26,29 +27,74 @@ export default defineEventHandler( async (event) => {
 
 function runCommand(name) {
     const meta = config[name]
+    const { path, repository, command, output } = meta
 
-    console.log(`
-    ----------------------------
-    ${new Date().toLocaleString()}
-    正在更新：${name}
-    `)
+    if ( !path.startsWith("/www/wwwroot/") ) {
+        log("路径错误")
+        return
+    }
 
-    process.chdir(meta.path)
-    execSync("git pull")
-    execSync(meta.command)
+    log( `-------${`正在更新：${name}`.padEnd(54, "-")}` )
 
-    const online = meta.path + meta.online
-    const output = meta.path + meta.output
-    try {
-        if (existsSync(online)) renameSync(online, online+"_")
-    } catch {}
-    try {
-        if (existsSync(output)) renameSync(output, online)
-    } catch {}
-    execSync("rm -r "+online+"_")
+    // 进入网站目录
+    process.chdir(path)
+    log(`切换工作目录为：${process.cwd()}`)
 
-    console.log(`
-    更新完成
-    ----------------------------
-    `)
+    if ( !process.cwd().startsWith("/www/wwwroot/") ) {
+        log("目录错误")
+        return
+    }
+
+/**
+ * Build
+ */
+
+    // 判断目录是否存在，存在则删除
+    if ( existsSync("./build/") ) {
+        log(`清除build目录`)
+        execSync("rm -rf ./build/")
+    }
+    // mkdirSync("./build/")
+
+    // git clone
+    log("git clone...")
+    execSync(`git clone https://oauth2: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@github.com/NiuexDev/${repository}.git build`)
+    log("git clone 完成")
+    
+    // 进入build目录
+    process.chdir("./build/")
+    log(`进入build目录：${process.cwd()}`)
+
+    /**
+     * npm build
+     */
+    // 安装依赖
+    log("安装依赖")
+    execSync("npm i")
+    log("安装依赖完成")
+
+    // 构建
+    log("开始构建")
+    execSync(command, {stdio: 'inherit'})
+    log("构建结束")
+
+/**
+ * 部署
+ */
+
+    // 重命名原online文件夹
+    if ( existsSync("../online/") ) {
+        log("重命名online")
+        renameSync("../online/", "../old_online/")
+    }
+    // 输出到online
+    log(`移动输出到online`)
+    renameSync(`./${output}`, "../online/")
+    
+    // 删除old_online
+    log("删除old_online")
+    execSync("rm -rf ../old_online/")
+
+
+    log( `-------${"更新完成".padEnd(54, "-")}` )
 }
