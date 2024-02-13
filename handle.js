@@ -52,13 +52,13 @@ function runCommand(name) {
     // 判断目录是否存在，存在则删除
     if ( existsSync("./build/") ) {
         log(`清除build目录`)
-        execSync("rm -rf ./build/")
+        execSync("rm -rf ./build/", {stdio: 'inherit'})
     }
     // mkdirSync("./build/")
 
     // git clone
     log("git clone...")
-    execSync(`git clone https://oauth2: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@github.com/NiuexDev/${repository}.git build`)
+    execSync(`git clone https://oauth2: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@github.com/NiuexDev/${repository}.git build`, {stdio: 'inherit'})
     log("git clone 完成")
     
     // 进入build目录
@@ -70,7 +70,7 @@ function runCommand(name) {
      */
     // 安装依赖
     log("安装依赖")
-    execSync("npm i")
+    execSync("npm i", {stdio: 'inherit'})
     log("安装依赖完成")
 
     // 构建
@@ -93,7 +93,7 @@ function runCommand(name) {
     
     // 删除old_online
     log("删除old_online")
-    execSync("rm -rf ../old_online/")
+    execSync("rm -rf ../old_online/", {stdio: 'inherit'})
 
 
     log( `-------${"更新完成".padEnd(54, "-")}` )
