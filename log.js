@@ -1,6 +1,9 @@
 export default (t) => {
     const date = new Date()
-    const time = `${date.getHours()}:${date.getMinutes()}:${`${date.getSeconds()}`.padStart(2, "0")}`
-    time.padEnd(10)
+    const hour = `${date.getHours()}`.padStart(2, "0")
+    const minute = `${date.getMinutes()}`.padStart(2, "0")
+    const second = `${date.getSeconds()}`.padStart(2, "0")
+
+    const time = `${hour}:${minute}:${second}`
     console.log(`| ${time} |  ${t}`)
 }
