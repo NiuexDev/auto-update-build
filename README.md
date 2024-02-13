@@ -37,7 +37,7 @@
     },
     "NiuexDev/example2": {
         "path": "/www/wwwroot/test.com",
-        "repository": "https://github.com/NiuexDev/example2.git",
+        "repository": "https://oauth2:ghp_1145141919810@github.com/NiuexDev/example2.git", // 假若您的仓库是私有仓库，那么可以像这样写，像这样带上Token就可以顺利 git clone 了
         "command": [
             "npm i",
             "npm run generate"
