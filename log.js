@@ -1,4 +1,4 @@
-export default (t) => {
+export default (t = "") => {
     const date = new Date()
     const hour = `${date.getHours()}`.padStart(2, "0")
     const minute = `${date.getMinutes()}`.padStart(2, "0")

@@ -1,0 +1,11 @@
+{
+    "homepage": {
+        "path": "<WEBSITE DIR>",
+        "repository": "<YOUR REPOSITORY URL>",
+        "command": [
+            "<YOUR COMMAND ONE>",
+            "<YOUR COMMAND TWO>"
+        ],
+        "output": "<OUTPUT DIR>"
+    }
+}

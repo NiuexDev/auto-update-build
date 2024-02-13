@@ -27,23 +27,14 @@ export default defineEventHandler( async (event) => {
 
 function runCommand(name) {
     const meta = config[name]
-    const { path, repository, command, output } = meta
-
-    if ( !path.startsWith("/www/wwwroot/") ) {
-        log("路径错误")
-        return
-    }
+    const { path, repository, command: commands, output } = meta
 
     log( `-------${`正在更新：${name}`.padEnd(54, "-")}` )
+    log()
 
     // 进入网站目录
     process.chdir(path)
     log(`切换工作目录为：${process.cwd()}`)
-
-    if ( !process.cwd().startsWith("/www/wwwroot/") ) {
-        log("目录错误")
-        return
-    }
 
 /**
  * Build
@@ -54,29 +45,27 @@ function runCommand(name) {
         log(`清除build目录`)
         execSync("rm -rf ./build/", {stdio: 'inherit'})
     }
-    // mkdirSync("./build/")
 
     // git clone
     log("git clone...")
-    execSync(`git clone https://oauth2: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@github.com/NiuexDev/${repository}.git build`, {stdio: 'inherit'})
-    log("git clone 完成")
+    log()
+    execSync(`git clone ${repository} build`, {stdio: 'inherit'})
+    log()
+    log("\ngit clone 完成")
     
     // 进入build目录
     process.chdir("./build/")
     log(`进入build目录：${process.cwd()}`)
 
-    /**
-     * npm build
-     */
-    // 安装依赖
-    log("安装依赖")
-    execSync("npm i", {stdio: 'inherit'})
-    log("安装依赖完成")
 
-    // 构建
-    log("开始构建")
-    execSync(command, {stdio: 'inherit'})
-    log("构建结束")
+    // 运行命令
+    commands.forEach(command => {
+        log(`运行 ${command}`)
+        log()
+        execSync(command, {stdio: 'inherit'})
+        log()
+        log("完成")
+    })
 
 /**
  * 部署
@@ -93,8 +82,9 @@ function runCommand(name) {
     
     // 删除old_online
     log("删除old_online")
-    execSync("rm -rf ../old_online/", {stdio: 'inherit'})
+    execSync("rm -rf ../old_online/")
 
 
+    log()
     log( `-------${"更新完成".padEnd(54, "-")}` )
 }
