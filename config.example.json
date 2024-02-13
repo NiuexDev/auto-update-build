@@ -3,8 +3,8 @@
         "path": "<WEBSITE DIR>",
         "repository": "<YOUR REPOSITORY URL>",
         "command": [
-            "<YOUR COMMAND ONE>",
-            "<YOUR COMMAND TWO>"
+            "<YOUR COMMAND ONE> SUCH AS <npm i>",
+            "<YOUR COMMAND TWO> SUCH AS <npm run build>"
         ],
         "output": "<OUTPUT DIR>"
     }
