@@ -1,6 +1,6 @@
 {
-    "homepage": {
-        "path": "<WEBSITE DIR>",
+    "<REPOSITORY PATH>": {
+        "path": "<DIR>",
         "repository": "<YOUR REPOSITORY URL>",
         "command": [
             "<YOUR COMMAND ONE> SUCH AS <npm i>",

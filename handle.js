@@ -14,7 +14,7 @@ export default defineEventHandler( async (event) => {
     
     if ( type == "push" ) {
         const payload = await readBody(event)
-        const name = payload.repository.name
+        const name = payload.repository.full_name
         if ( list.includes(name) ) {
             runCommand(name)
         }
@@ -25,7 +25,7 @@ export default defineEventHandler( async (event) => {
 })
 
 
-function runCommand(name) {
+async function runCommand(name) {
     const meta = config[name]
     const { path, repository, command: commands, output } = meta
 
