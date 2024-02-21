@@ -17,7 +17,7 @@ export default defineEventHandler( async (event) => {
         const name = payload.repository.full_name
         if ( list.includes(name) ) {
             if ( payload.ref.split("/")[2] == config[name].branch ) {
-                runCommand(config[name])
+                runCommand(name)
             }
         }
     }
@@ -26,10 +26,9 @@ export default defineEventHandler( async (event) => {
     return { message: "已接收" }
 })
 
-
-async function runCommand(meta) {
+async function runCommand(name) {
     
-    const { branch, path, repository, command: commands, output } = meta
+    const { branch, path, repository, command: commands, output } = config[name]
 
     log( `-------${`正在更新：${name}`.padEnd(54, "-")}` )
     log()
@@ -99,4 +98,5 @@ async function runCommand(meta) {
         log( `-------${"更新完成".padEnd(54, "-")}` )
     }
 
+    return
 }
