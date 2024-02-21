@@ -1,6 +1,6 @@
 import { defineEventHandler, getHeader, readBody, setResponseStatus } from "h3"
 import { execSync } from "node:child_process"
-import { existsSync, mkdirSync, readFileSync, renameSync, unlinkSync } from "node:fs"
+import { existsSync, mkdirSync, readFileSync, renameSync } from "node:fs"
 import log from "./log.js"
 
 
@@ -26,7 +26,7 @@ export default defineEventHandler( async (event) => {
     return { message: "已接收" }
 })
 
-async function runCommand(name) {
+function runCommand(name) {
     
     const { branch, path, repository, command: commands, output } = config[name]
 
