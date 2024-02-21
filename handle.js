@@ -16,7 +16,9 @@ export default defineEventHandler( async (event) => {
         const payload = await readBody(event)
         const name = payload.repository.full_name
         if ( list.includes(name) ) {
-            runCommand(name)
+            if ( payload.ref.split("/")[2] == config[name].branch ) {
+                runCommand(config[name])
+            }
         }
     }
 
@@ -25,9 +27,9 @@ export default defineEventHandler( async (event) => {
 })
 
 
-async function runCommand(name) {
-    const meta = config[name]
-    const { path, repository, command: commands, output } = meta
+async function runCommand(meta) {
+    
+    const { branch, path, repository, command: commands, output } = meta
 
     log( `-------${`正在更新：${name}`.padEnd(54, "-")}` )
     log()

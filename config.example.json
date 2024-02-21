@@ -1,5 +1,6 @@
 {
     "<REPOSITORY PATH>": {
+        "branch": "<BRANCH>",
         "path": "<DIR>",
         "repository": "<YOUR REPOSITORY URL>",
         "command": [
