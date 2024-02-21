@@ -90,9 +90,10 @@ function runCommand(name) {
         execSync("rm -rf ../old_online/")
 
         
-    } catch {
+    } catch(e) {
         log()
         log( `-------${"更新失败".padEnd(54, "-")}` )
+        console.error(e)
     } finally {
         log()
         log( `-------${"更新完成".padEnd(54, "-")}` )
