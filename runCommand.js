@@ -1,34 +1,12 @@
-import { defineEventHandler, getHeader, readBody, setResponseStatus } from "h3"
+
 import { execSync } from "node:child_process"
-import { existsSync, mkdirSync, readFileSync, renameSync } from "node:fs"
+import { existsSync, renameSync } from "node:fs"
+import config from "./config.js"
 import log from "./log.js"
 
-
-const config = JSON.parse(readFileSync("./config.json", "utf-8"))
-const list = Object.keys(config)
-
-
-export default defineEventHandler( async (event) => {
-
-    const type = getHeader(event, "x-github-event")
+export default (name) => {
     
-    if ( type == "push" ) {
-        const payload = await readBody(event)
-        const name = payload.repository.full_name
-        if ( list.includes(name) ) {
-            if ( payload.ref.split("/")[2] == config[name].branch ) {
-                runCommand(name)
-            }
-        }
-    }
-
-    setResponseStatus(event, 200)
-    return { message: "已接收" }
-})
-
-function runCommand(name) {
-    
-    const { branch, path, repository, command: commands, output } = config[name]
+    const { branch, path, repository, command: commands, output } = config.list[name]
 
     log( `-------${`正在更新：${name}`.padEnd(54, "-")}` )
     log()

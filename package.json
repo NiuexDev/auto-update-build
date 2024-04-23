@@ -5,11 +5,15 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node ./index.js"
+    "start": "node ./index.js",
+    "dev": "nodemon ./index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "h3": "^1.10.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }
