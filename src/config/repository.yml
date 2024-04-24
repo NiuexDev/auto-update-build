@@ -1,0 +1,9 @@
+repository:
+    <REPOSITORY PATH>: 
+        branch: <BRANCH>
+        path: <DIR>
+        repository: <YOUR REPOSITORY URL>
+        command: 
+            - "<YOUR COMMAND ONE> SUCH AS <npm i>"
+            - "<YOUR COMMAND TWO> SUCH AS <npm run build>"
+        output: <OUTPUT DIR>

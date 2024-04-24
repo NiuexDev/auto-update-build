@@ -22,30 +22,26 @@
 
 ## 其他配置及说明
 
-程序默认运行在`20001`端口，如需修改请直接更改`index.js`文件。但更推荐通过nginx等服务反向代理到一个域名，并开启https
+程序默认运行在`20001`端口，如需修改请更改`config.yml`文件。但更推荐通过nginx等服务反向代理到一个域名，并开启https
 
 ## 例子
-``` JSON
-{
-    "NiuexDev/example": {
-        "branch": "main",
-        "path": "/www/wwwroot/example.com",
-        "repository": "https://github.com/NiuexDev/example.git",
-        "command": [
-            "npm i",
-            "npm run build"
-        ],
-        "output": ".output/dist/"
-    },
-    "NiuexDev/example2": {
-        "branch": "master",
-        "path": "/www/wwwroot/test.com",
-        "repository": "https://oauth2:ghp_1145141919810@github.com/NiuexDev/example2.git", // 假若您的仓库是私有仓库，那么可以像这样写，像这样带上Token就可以顺利 git clone 了
-        "command": [
-            "npm i",
-            "npm run generate"
-        ],
-        "output": ".dist/"
-    }
-}
+``` YAML
+repository:
+    <REPOSITORY PATH>: 
+        branch: <BRANCH>
+        path: <DIR>
+        repository: <YOUR REPOSITORY URL>
+        command: 
+            - "<YOUR COMMAND ONE> SUCH AS <npm i>"
+            - "<YOUR COMMAND TWO> SUCH AS <npm run build>"
+        output: <OUTPUT DIR>
+    <OTHER REPOSITORY PATH>: 
+        branch: main
+        path: /www/example.com
+        repository: htttp://github.com/example/example.com.git
+        command: 
+            - "<YOUR COMMAND ONE> SUCH AS <npm i>"
+            - "<YOUR COMMAND TWO> SUCH AS <npm run build>"
+        output: <OUTPUT DIR>
+```
 ```

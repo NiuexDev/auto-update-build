@@ -129,4 +129,5 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-*config.json*
+/config.yml
+/repository.yml

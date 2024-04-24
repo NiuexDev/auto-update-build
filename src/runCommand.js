@@ -1,12 +1,13 @@
 
 import { execSync } from "node:child_process"
 import { existsSync, renameSync } from "node:fs"
-import config from "./config.js"
+import { getRepository } from "./config.js"
 import log from "./log.js"
 
 export default (name) => {
     
-    const { branch, path, repository, command: commands, output } = config.list[name]
+    const repositoryList = getRepository()
+    const { branch, path, repository, command: commands, output } = repositoryList[name]
 
     log( `-------${`正在更新：${name}`.padEnd(54, "-")}` )
     log()
