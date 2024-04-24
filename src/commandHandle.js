@@ -5,8 +5,8 @@ export default (line) => {
     const command = line.split(" ")[0]
     const arg = line.split(" ").slice(1)
     switch (command) {
-        case "update":
-            update(arg)
+        case "build":
+            build(arg)
             break
         case "reload":
             reload(arg)
@@ -21,7 +21,7 @@ export default (line) => {
     }
 }
 
-const update = (arg) => {
+const build = (arg) => {
     const repository = getRepository()
     const name = arg[0]
     if ( !name ) {
@@ -48,5 +48,5 @@ const list = () => {
 const help = () => {
     console.log("list <name>:\n  列出仓库，未指定name则为列出全部仓库。")
     console.log("reload:\n  重新载入repository.yml配置文件")
-    console.log("update [name]:\n  更新构建仓库")
+    console.log("build [name]:\n  更新构建仓库")
 }
