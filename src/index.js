@@ -23,7 +23,7 @@ const rl = readline.createInterface({
     input,
     output,
     terminal: false,
-    prompt: " > "
+    prompt: "> "
 })
 
 rl.addListener("line", (line) => {

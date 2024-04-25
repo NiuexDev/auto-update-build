@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "start": "node ./src/index.js",
+    "build": "node build.js",
+    "test": "cd ./dist && node server.js && cd ..",
     "dev": "nodemon ./src/index.js"
   },
   "author": "",
@@ -15,6 +16,7 @@
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
+    "esbuild": "^0.20.2",
     "nodemon": "^3.1.0"
   }
 }

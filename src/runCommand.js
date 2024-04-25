@@ -75,7 +75,7 @@ export default (name) => {
         console.error(e)
     } finally {
         log()
-        log( `-------${"更新完成".padEnd(54, "-")}` )
+        log( `-------${"更新结束".padEnd(54, "-")}` )
     }
 
     return

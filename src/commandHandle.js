@@ -2,8 +2,9 @@ import { loadRepository, getRepository } from "./config.js"
 import runCommand from "./runCommand.js"
 
 export default (line) => {
-    const command = line.split(" ")[0]
-    const arg = line.split(" ").slice(1)
+    const value = line.trimStart().trimEnd().split(" ")
+    const command = value[0]
+    const arg = value.slice(1)
     switch (command) {
         case "build":
             build(arg)
@@ -15,7 +16,7 @@ export default (line) => {
             list(arg)
             break
         case "help":
-            help()
+            help(arg)
             break
         default: console.warn("未知的命令")
     }
