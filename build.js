@@ -1,7 +1,7 @@
 import esbuild from "esbuild"
 import { writeFile } from "node:fs/promises"
 
-esbuild.build({
+await esbuild.build({
   entryPoints: ['src/index.js'],
   outfile: 'dist/server.js',
   platform: 'node',
