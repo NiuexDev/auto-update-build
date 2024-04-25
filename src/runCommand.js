@@ -5,7 +5,8 @@ import { getRepository } from "./config.js"
 import log from "./log.js"
 
 export default (name) => {
-    
+    const startTime = Date.now()
+
     const repositoryList = getRepository()
     const { branch, path, repository, command: commands, output } = repositoryList[name]
 
@@ -74,8 +75,11 @@ export default (name) => {
         log( `-------${"更新失败".padEnd(54, "-")}` )
         console.error(e)
     } finally {
+        const endTime = Date.now()
+        const spentTime = endTime - startTime
+        const seconds = Math.round(spentTime / 1000) // 花费的总秒数，使用round处理浮点数取整
         log()
-        log( `-------${"更新结束".padEnd(54, "-")}` )
+        log( `-------更新结束，用时${seconds}秒`.padEnd(54, "-") )
     }
 
     return
