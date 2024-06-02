@@ -44,4 +44,3 @@ repository:
             - "<YOUR COMMAND TWO> SUCH AS <npm run build>"
         output: <OUTPUT DIR>
 ```
-```
